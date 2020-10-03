@@ -1,11 +1,14 @@
 # Function to print binary number using recursion
-def convertToBinary(n):
-   if n > 1:
-       convertToBinary(n//2)
-   print(n % 2,end = '')
+#date - 03-10-2020
+# reduced the code to convert number from decimal to binary
+
+def dec_to_bin(x):
+    return int(bin(x)[2:])
 
 # enter decimal number
 dec = 34
 
-convertToBinary(dec)
-print()
+dec_to_bin(dec)
+print() 
+
+
