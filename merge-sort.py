@@ -1,34 +1,67 @@
-def merge_sort(unsorted_list):
-    if len(unsorted_list) <= 1:
-        return unsorted_list
-		
-	# Finding the middle point and partitioning the array into two halves
-    middle = len(unsorted_list) // 2
-    left = unsorted_list[:middle]
-    right = unsorted_list[middle:]
 
-    left = merge_sort(left)
-    right = merge_sort(right)
-    return list(merge(left, right))
-
-#Merging the sorted halves
-def merge(left,right):
-
-    res = []
-    while len(left) != 0 and len(right) != 0:
-        if left[0] < right[0]:
-            res.append(left[0])
-            left.remove(left[0])
-        else:
-            res.append(right[0])
-            right.remove(right[0])
-    if len(left) == 0:
-        res = res + right
-    else:
-        res = res + left
-    return res
-
-input_list = list(map(int,input("Enter unsorted input list: ").split()))
-
-print("Unsorted Input: ", input_list)
-print("Sorted Output: ", merge_sort(input_list))
+def merge(arr, l, m, r): 
+    n1 = m - l + 1
+    n2 = r- m 
+  
+    # create temp arrays 
+    L = [0] * (n1) 
+    R = [0] * (n2) 
+  
+    # Copy data to temp arrays L[] and R[] 
+    for i in range(0 , n1): 
+        L[i] = arr[l + i] 
+  
+    for j in range(0 , n2): 
+        R[j] = arr[m + 1 + j] 
+  
+    i = 0     
+    j = 0      
+    k = l     
+  
+    while i < n1 and j < n2 : 
+        if L[i] <= R[j]: 
+            arr[k] = L[i] 
+            i += 1
+        else: 
+            arr[k] = R[j] 
+            j += 1
+        k += 1
+  
+    while i < n1: 
+        arr[k] = L[i] 
+        i += 1
+        k += 1
+  
+    # Copy the remaining elements of R[], if there 
+    # are any 
+    while j < n2: 
+        arr[k] = R[j] 
+        j += 1
+        k += 1
+  
+# l is for left index and r is right index of the 
+# sub-array of arr to be sorted 
+def mergeSort(arr,l,r): 
+    if l < r: 
+  
+        # Same as (l+r)//2, but avoids overflow for 
+        # large l and h 
+        m = (l+(r-1))//2
+  
+        # Sort first and second halves 
+        mergeSort(arr, l, m) 
+        mergeSort(arr, m+1, r) 
+        merge(arr, l, m, r) 
+  
+  
+# Driver code to test above 
+arr = [12, 11, 13, 5, 6, 7] 
+n = len(arr) 
+print ("Given array is") 
+for i in range(n): 
+    print ("%d" %arr[i]), 
+  
+mergeSort(arr,0,n-1) 
+print ("\n\nSorted array is") 
+for i in range(n): 
+    print ("%d" %arr[i]),
