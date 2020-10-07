@@ -1,58 +1,68 @@
-import random
+from random import choice
+import sys
 
-print("\n\n"+"Welcome to Rock, Paper, Scissor GAME".center(46, "-"))
-win, lose, tie = 0, 0, 0
 
-while True:   
-    ai = random.randint(1, 3)   # Taking random input
-    
-    # Show results
-    print("\nWIN = {0}  LOSE = {1}  TIE = {2}".format(win, lose, tie))
-    print("\nEnter (r)ock, (p)aper, (s)cissor or (q)uit\n")
-    
-    inp = input()   # User input
-    if (inp == "r"):
-        print("Rock verses...")
-    elif (inp == "p"):
-        print("Paper verses...")
-    elif (inp == "s"):
-        print("Scissor verses...")
-    elif (inp == "q"):
-        break
-    else:
-        print("ENTER VALID INPUT")
-        continue
-    
-    # Displaying pc's move
-    if ai == 1:
-        print("Rock")
-        ai = "r"
-    elif ai == 2:
-        print("Paper")
-        ai = "p"
-    elif ai == 3:
-        print("Scissor")
-        ai = "s"
-        
-    # Checking conditions
-    if inp == ai:
-        print("\nIt's a TIE.")
-        tie += 1
-    elif inp == "r" and ai == 's':
+class RPSGame:
+    def __init__(self):
+        self.win, self.lose, self.tie = 0, 0, 0
+        self.options = ['Rock', 'Paper', 'Scissor']
+        print("\n\n"+"Welcome to Rock, Paper, Scissor GAME".center(46, "-"))
+
+    def show_result(self):
+        print("\nWIN = {0}  LOSE = {1}  TIE = {2}".format(
+            self.win, self.lose, self.tie))
+        print("\nEnter Rock, Paper, Scissor or (q)uit\n")
+
+    def take_input(self):
+        self.inp = input()   # User input
+        if self.inp in self.options:
+            print(' VS')
+        elif (self.inp == "q"):
+            sys.exit()
+        else:
+            print("ENTER VALID INPUT\n")
+            self.take_input()
+
+    def pc_move(self):
+        self.pc = choice(self.options)   # Taking pc input
+        print(f'{self.pc}')
+
+    def game_won(self):
         print("\nYou WIN.")
-        win += 1
-    elif inp == 'p' and ai == 'r':
-        print("\nYou WIN.")
-        win += 1
-    elif inp == 's' and ai == 'p':
-        print("\nYou WIN.")
-        win += 1
-    elif inp == 'r' and ai == 'p':
+        self.win += 1
+
+    def game_lost(self):
         print("\nYou LOSE.")
-        lose += 1
-    elif inp == 's' and ai == 'r':
-        print("\nYou LOSE.")
-        lose += 1
-    elif inp == 'p' and ai == 's':
-        print("\nYou LOSE.")
-        lose += 1
+        self.lose += 1
+
+    def check_conditions(self):
+        if self.inp == self.pc:
+            print("\nIt's a TIE.")
+            self.tie += 1
+        elif self.inp == 'Rock':
+            if self.pc == 'Paper':
+                self.game_lost()
+            else:
+                self.game_won()
+        elif self.inp == 'Paper':
+            if self.pc == 'Scissor':
+                self.game_lost()
+            else:
+                self.game_won()
+        elif self.inp == 'Scissor':
+            if self.pc == 'Rock':
+                self.game_lost()
+            else:
+                self.game_won()
+
+    def play(self):
+        while True:
+            self.show_result()
+            self.take_input()
+            self.pc_move()
+            self.check_conditions()
+
+
+if __name__ == "__main__":
+    game = RPSGame()
+    game.play()
