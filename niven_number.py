@@ -6,7 +6,7 @@ while n!=0:
     r1=n%10
     sum=sum+r1
     n=n//10
-    r2=temp%sum
+r2=temp%sum
 if r2==0:
     print(temp,"is a niven number.")
 else:
