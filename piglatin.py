@@ -28,4 +28,4 @@ for i in p:
 
 #joining the words of list z to form a sentence of the piglatin form and then printing it
 a=" ".join(z)
-print("\n",a)
+print(f"Piglatin form is: {a}")
