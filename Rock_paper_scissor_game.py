@@ -54,13 +54,25 @@ class RPSGame:
                 self.game_lost()
             else:
                 self.game_won()
+        print("\n"+"-"*46)
+
+    def show_final_win(self):
+        print("\nWIN = {0}  LOSE = {1}  TIE = {2}".format(
+            self.win, self.lose, self.tie))
+        if self.win > self.lose:
+            print("\nWinner of the Game : YOU\n")
+        elif self.win > self.lose:
+            print("\nWinner of the Game : COMPUTER\n")
+        else:
+            print("\nResult of the Game : IT'S A TIE\n")
 
     def play(self):
-        while True:
+        for _ in range(5):
             self.show_result()
             self.take_input()
             self.pc_move()
             self.check_conditions()
+        self.show_final_win()
 
 
 if __name__ == "__main__":
