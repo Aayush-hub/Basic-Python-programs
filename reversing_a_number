@@ -1,0 +1,5 @@
+num = int(input())
+num_str = str(a)
+rev_str = b[::-1]
+rev_num = int(b)
+print(rev_num)
